@@ -1,11 +1,20 @@
 #!/usr/bin/env python3
 
-"""Problem:
-Organize files in a folder_path by type"""
+"""Recursively organize files by extension.
 
-import os
+This script scans the current working directory and its subfolders,
+moves supported files into category folders based on extension,
+and avoids overwriting files by adding a numeric suffix when needed.
+
+Supported categories:
+- images: .jpg, .png
+- music: .mp3
+- video: .mp4
+- documents: .pdf
+"""
+
 from pathlib import Path
-import shutil
+
 
 folder_path = Path.cwd()
 
@@ -17,53 +26,37 @@ files_type = {
     '.pdf': 'documents'
 }
 
-counter = 0
 
-def file_work(file,folder):
+
+def file_work(file_path,current_folder):
     
-    extension = file.suffix
-     
-    if extension in files_type:
-        #renaming the files
-        new_name= folder.joinpath('test' + files_type[extension] + extension)
-        file.rename(new_name)
+    extension = file_path.suffix.lower()
+    category = files_type.get(extension)
+    stem = file_path.stem
+    if category:
         #creating the new folders
-        new_folder = folder.joinpath(files_type[extension])
-        new_folder.mkdir(exist_ok=True)
-        #moving the files
-        shutil.move(new_name, new_folder)
-        
+        target_folder = current_folder / category
+        target_folder.mkdir(exist_ok=True)      
+
+        #renaming the files
+        destination = target_folder / file_path.name
+        counter = 1
+        while destination.exists():
+            new_name = f"{stem}_{counter}{extension}"
+            destination = target_folder / new_name
+            counter += 1      
+        file_path.rename(destination)               
     else:
-        print(f"file extension {file.suffix} not workable")
+        print(f"file extension {file_path.suffix} not workable")
 
     
-
-
-
 def main(folder_path):    
-    for files in folder_path.iterdir():
-        if files.is_dir():
-            for file in files.iterdir():
-                if file.is_file():
-                    file_work(file,files)
+    for file in folder_path.iterdir():
+        if file.is_file():
+            file_work(file,folder_path)
+        if file.is_dir() and file.name not in files_type.values():
+            main(file)
 
      
 
 main(folder_path)
-
-#old school and just strings with listdir     
-""" for dir in dir_path:
-        if os.path.isdir(os.path.join(folder_path, dir)):
-            for file in os.listdir(os.path.join(folder_path, dir)):
-                print("It's a File")
-        else:
-            print("It's not a directory (or doesn't exist).") """
-
-#print(os.path.join(folder_path, dir))
-
-
-
-
-
-
-

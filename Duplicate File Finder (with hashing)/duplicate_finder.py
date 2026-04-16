@@ -1,5 +1,27 @@
 #!/usr/bin/env python3
 
+"""Duplicate File Finder (CLI Tool)
+
+This script scans a directory and identifies duplicate files based on content.
+
+Workflow:
+1. Files are grouped by size to quickly eliminate non-duplicates.
+2. Only groups with matching sizes are hashed using MD5.
+3. Files with identical hashes are reported as duplicates.
+
+Features:
+- Efficient duplicate detection using size pre-filtering
+- Content-based comparison using hashing
+- CLI support for specifying target directory
+
+Limitations:
+- Only scans the top-level directory (non-recursive)
+- Uses MD5 (fast but not cryptographically secure, acceptable for this use case)
+
+Usage:
+    python duplicate_finder.py --path ./your-folder
+"""
+
 from pathlib import Path
 import argparse
 import hashlib
@@ -27,7 +49,7 @@ def show_results(hashed_files):
         print("No duplicates Found")
 
 
-def group_by_hash(files,hashed_files):
+def group_by_hash(files, hashed_files):
     for file in files:
         #modern approach for large files
         with open(file, "rb") as f:
@@ -38,6 +60,12 @@ def group_by_hash(files,hashed_files):
 
 
 def main(path):
+    #path check
+
+    if not args.path.exists() or not args.path.is_dir():
+        print("Please provide a valid folder path.")
+        return
+
     #main vars
 
     files_dict = {}
@@ -64,7 +92,7 @@ def main(path):
         for size in files_dict[extension]:
             group = files_dict[extension][size]
             if len(group) > 1:
-                group_by_hash(group,hashed_files)
+                group_by_hash(group, hashed_files)
 
     show_results(hashed_files)                 
 

@@ -1,0 +1,13 @@
+2026-04-15 09:08:00 ERROR Database connection timeout
+2026-04-15 09:09:45 INFO Scheduled job completed job_id=backup_01
+2026-04-15 09:00:01 INFO User login successful user_id=1023
+2026-04-15 09:02:45 ERROR Database connection timeout
+2026-04-15 09:07:11 INFO User login successful user_id=3099
+2026-04-15 09:00:05 INFO User viewed dashboard user_id=1023
+2026-04-15 09:09:10 INFO Scheduled job started job_id=backup_01
+2026-04-15 09:04:55 INFO User logout user_id=1023
+2026-04-15 09:06:30 WARNING Memory usage high (78%)
+2026-04-15 09:07:45 INFO User viewed dashboard user_id=3099
+2026-04-15 09:10:05 WARNING Disk usage at 85%2026-04-15 09:03:10 INFO File uploaded file_name=report.pdf
+2026-04-15 09:05:22 ERROR Failed login attempt user_id=2045
+2026-04-15 09:01:12 WARNING Disk usage at 82%

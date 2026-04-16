@@ -1,0 +1,13 @@
+Log Cleaning Report
+===================
+Source file: app.log
+Cleaned file: app_clean.log
+
+Lines processed: 26
+Empty lines removed: 9
+Duplicate lines removed: 3
+
+Log levels:
+INFO: 8
+WARNING: 3
+ERROR: 3

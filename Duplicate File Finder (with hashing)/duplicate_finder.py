@@ -29,9 +29,9 @@ def show_results(hashed_files):
 
 def group_by_hash(files,hashed_files):
     for file in files:
+        #modern approach for large files
         with open(file, "rb") as f:
-            data = f.read()
-            file_hash = hashlib.md5(data).hexdigest()
+            file_hash = hashlib.file_digest(f,'md5').hexdigest()
         if file_hash not in hashed_files:
             hashed_files[file_hash] = []
         hashed_files[file_hash].append(file)

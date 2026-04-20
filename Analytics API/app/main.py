@@ -30,16 +30,3 @@ def count_logs(logs: list[str]):
 @app.post('/analyze')
 def analyze_logs(payload: LogRequest):
     return count_logs(payload.logs)
-
-
-""" logs = {
-  "logs": [
-    "INFO: User login",
-    "ERROR: DB timeout",
-    "ERROR: DB timeout",
-    "WARNING: StatReload detected",
-    "WARNING: StatReload detected",
-    "INFO: Started server process [33840]",
-    "INFO: Finished server process [31044]"
-  ]
-} """

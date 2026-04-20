@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File
+from fastapi import FastAPI, UploadFile, File, HTTPException
 from pydantic import BaseModel
 import re
 
@@ -11,7 +11,7 @@ class LogRequest(BaseModel):
 def root():
     return {"message":"API is running"}
 
-def count_logs(logs: list[str]):
+def count_logs(logs: list[str]) -> dict[str,int]:
     logs_dict = {"INFO":0, "WARNING":0,"ERROR":0, "duplicates":0}
     seen_logs = set()
     pattern = re.compile(r"(ERROR|INFO|WARNING)")
@@ -32,12 +32,22 @@ def analyze_logs(payload: LogRequest):
     return count_logs(payload.logs)
 
 @app.post('/analyze-file')
-async def analyze_file(file: UploadFile | None = None):
-    if not file:
-        return {"message": "No upload file sent"}
-    else:
-        contents = await file.read()        
+async def analyze_file(file: UploadFile = File(...)):
+    if not file.filename:
+        raise HTTPException(status_code=400, detail="No file uploaded")
+    if not file.filename.endswith((".log",",txt")):
+        raise HTTPException(status_code=400,detail="Only .log or .txt files are allowed")
+    
+    contents = await file.read()
+
+    if not contents:
+        raise HTTPException(status_code=400, detail="File is empty")
+    
+    try:             
         text = contents.decode('utf-8')
-        logs = text.splitlines()
-        return count_logs(logs)
+    except:
+        raise HTTPException(status_code=400, detail="File must be UTF-8 encoded text")
+    
+    logs = text.splitlines()
+    return count_logs(logs)
         

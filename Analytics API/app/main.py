@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, File
 from pydantic import BaseModel
 import re
 
@@ -30,3 +30,14 @@ def count_logs(logs: list[str]):
 @app.post('/analyze')
 def analyze_logs(payload: LogRequest):
     return count_logs(payload.logs)
+
+@app.post('/analyze-file')
+async def analyze_file(file: UploadFile | None = None):
+    if not file:
+        return {"message": "No upload file sent"}
+    else:
+        contents = await file.read()        
+        text = contents.decode('utf-8')
+        logs = text.splitlines()
+        return count_logs(logs)
+        

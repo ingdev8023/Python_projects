@@ -1,0 +1,11 @@
+2026-04-20 16:02:04,099 INFO uvicorn.error Will watch for changes in these directories: ['C:\\Users\\artej\\Documents\\MrRobot\\Backend_Journey\\Python_projects\\Analytics API']
+2026-04-20 16:02:04,099 INFO uvicorn.error Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+2026-04-20 16:02:04,099 INFO uvicorn.error Started reloader process [29960] using StatReload
+2026-04-20 16:02:04,811 INFO uvicorn.error Started server process [36252]
+2026-04-20 16:02:04,811 INFO uvicorn.error Waiting for application startup.
+2026-04-20 16:02:04,811 INFO uvicorn.error Application startup complete.
+2026-04-20 16:02:44,583 INFO uvicorn.error Shutting down
+2026-04-20 16:02:44,698 INFO uvicorn.error Waiting for application shutdown.
+2026-04-20 16:02:44,701 INFO uvicorn.error Application shutdown complete.
+2026-04-20 16:02:44,701 INFO uvicorn.error Finished server process [36252]
+2026-04-20 16:02:44,734 INFO uvicorn.error Stopping reloader process [29960]

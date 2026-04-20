@@ -11,26 +11,35 @@ class LogRequest(BaseModel):
 def root():
     return {"message":"API is running"}
 
+def count_logs(logs: list[str]):
+    logs_dict = {"INFO":0, "WARNING":0,"ERROR":0, "duplicates":0}
+    seen_logs = set()
+    pattern = re.compile(r"(ERROR|INFO|WARNING)")
+    for log in logs:       
+        match = pattern.search(log)
+        if match:
+            if log in seen_logs:
+                logs_dict['duplicates'] += 1
+            else:
+                level = match.group(0)
+                logs_dict[level] += 1
+        seen_logs.add(log)    
+            
+    return logs_dict
+
 @app.post('/analyze')
 def analyze_logs(payload: LogRequest):
-    logs_dict = {}
-    pattern = re.compile(r"(ERROR|INFO|WARNING)")
-
-    for log in payload.logs:        
-        match = pattern.search(pattern, log)
-        if match:
-            level = match.group(0)
-            if level not in logs_dict:
-                logs_dict[level] = 0
-            logs_dict[level] += 1
-    
-    return logs_dict
+    return count_logs(payload.logs)
 
 
 """ logs = {
   "logs": [
     "INFO: User login",
     "ERROR: DB timeout",
-    "ERROR: DB timeout"
+    "ERROR: DB timeout",
+    "WARNING: StatReload detected",
+    "WARNING: StatReload detected",
+    "INFO: Started server process [33840]",
+    "INFO: Finished server process [31044]"
   ]
 } """

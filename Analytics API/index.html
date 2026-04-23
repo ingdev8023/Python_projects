@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log Analyzer API Tester</title>
+  <link rel="stylesheet" href="frontend/style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Log Analyzer API Tester</h1>
+      <p>Use this page to test your FastAPI backend with either raw log lines or an uploaded <code>.log</code>/<code>.txt</code> file.</p>
+      <label for="apiUrl">API Base URL</label>
+      <input type="text" id="apiUrl" value="http://127.0.0.1:8000" />
+      <p class="hint">Keep your FastAPI server running before testing.</p>
+      <div class="button-row">
+        <button id="healthBtn" type="button">Test Health Check</button>
+      </div>
+      <div class="status" id="healthStatus"></div>
+    </div>
+
+    <div class="card">
+      <h2>Analyze JSON Logs</h2>
+      <label for="logsInput">Paste one log line per row</label>
+      <textarea id="logsInput">INFO: User login
+ERROR: DB timeout
+ERROR: DB timeout
+WARNING: Disk almost full</textarea>
+      <div class="button-row">
+        <button id="analyzeJsonBtn" type="button">Send to /analyze</button>
+        <button id="clearLogsBtn" type="button" class="secondary">Clear</button>
+      </div>
+      <div class="status" id="jsonStatus"></div>
+    </div>
+
+    <div class="card">
+      <h2>Analyze File Upload</h2>
+      <label for="fileInput">Choose a log file</label>
+      <input type="file" id="fileInput" accept=".log,.txt" />
+      <div class="button-row">
+        <button id="analyzeFileBtn" type="button">Send to /analyze-file</button>
+      </div>
+      <div class="status" id="fileStatus"></div>
+    </div>
+
+    <div class="card">
+      <h2>Response</h2>
+      <pre id="output">No request sent yet.</pre>
+    </div>
+  </div>
+  <script src="frontend/main.js" defer></script>
+</body>
+</html>

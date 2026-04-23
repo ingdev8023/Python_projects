@@ -1,0 +1,83 @@
+* { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+    }
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 24px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      margin-bottom: 24px;
+    }
+    h1, h2 {
+      margin-top: 0;
+    }
+    p {
+      line-height: 1.5;
+    }
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    input[type="text"], textarea, input[type="file"] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 14px;
+      margin-bottom: 16px;
+      background: #fff;
+    }
+    textarea {
+      min-height: 180px;
+      resize: vertical;
+      font-family: Consolas, Monaco, monospace;
+    }
+    .button-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      background: #2563eb;
+      color: white;
+    }
+    button.secondary {
+      background: #475569;
+    }
+    button:hover {
+      opacity: 0.95;
+    }
+    .status {
+      margin-top: 12px;
+      font-weight: 700;
+    }
+    pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 16px;
+      border-radius: 12px;
+      overflow-x: auto;
+      min-height: 120px;
+    }
+    .hint {
+      font-size: 13px;
+      color: #475569;
+      margin-top: -8px;
+      margin-bottom: 16px;
+    }

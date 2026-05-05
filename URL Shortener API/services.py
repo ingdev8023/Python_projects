@@ -31,11 +31,10 @@ def url_short(original_url, server_url):
 
 
 def get_original_url(short_code):
-    url_data = urls_store[short_code]
+    url_data = urls_store.get(short_code)
     if not url_data:
         return None
-    else:
-        return url_data["original_url"]
+    return url_data["original_url"]
     
 def return_urls_store():
     return urls_store

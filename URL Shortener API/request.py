@@ -33,3 +33,8 @@ response = requests.post(
     "http://127.0.0.1:5000/shorten",
     json={"url": "https://example/13123qwweqwesdas/12312eqwe/adasdsd.com"}
 )
+
+response = requests.post(
+    "http://127.0.0.1:5000/shorten",
+    json={"url": "assasdasdas"}
+)

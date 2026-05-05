@@ -23,17 +23,19 @@ def url_short(original_url, server_url):
 
     urls_store[short_code] = {
         "original_url": original_url,
-        "short_url": server_url + short_code
+        "short_url": server_url + short_code,
+        "short_code": short_code
     }
     
     return urls_store[short_code]
 
 
 def get_original_url(short_code):
-    if short_code in urls_store:
-        return urls_store[short_code]["original_url"]
+    url_data = urls_store[short_code]
+    if not url_data:
+        return None
     else:
-        return False
+        return url_data["original_url"]
     
 def return_urls_store():
     return urls_store

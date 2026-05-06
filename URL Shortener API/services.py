@@ -1,5 +1,7 @@
 import string
 import secrets
+import csv
+from pathlib import Path
 from db import get_connection
 
 def generate_short_code(length=6):
@@ -80,6 +82,24 @@ def get_url_stats(short_code):
 
     return dict(row)
 
+def get_info():
+    file_path = Path("exports/links.csv")
+    file_path.parent.mkdir(exist_ok=True)
+
+    with get_connection() as connection:
+        rows = connection.execute(
+        """
+        SELECT *
+        FROM urls
+        """
+        ).fetchall()
+            
+    with file_path.open("w", newline='') as csv_info:
+        csv_info_writer = csv.writer(csv_info)
+        csv_info_writer.writerow(['id','short_code', 'original_url', 'short_url', 'clicks', 'created_at'])
+        csv_info_writer.writerows(rows)
+    
+    return file_path
     
         
        

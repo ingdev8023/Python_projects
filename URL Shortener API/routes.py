@@ -1,5 +1,5 @@
-from flask import Flask, request, redirect, jsonify,abort
-from services import url_short, get_original_url, increment_clicks, get_url_stats
+from flask import Flask, request, redirect, jsonify,abort, send_file
+from services import url_short, get_original_url, increment_clicks, get_url_stats, get_info
 from db import init_db
 
 app = Flask(__name__)
@@ -43,3 +43,14 @@ def stats(short_code):
         return jsonify({"error": "Short URL not found"}), 404
 
     return jsonify(stats_data)
+
+@app.route("/export")
+def get_urls():
+    csv_path = get_info()
+
+    return send_file(
+        csv_path,
+        mimetype="text/csv",
+        as_attachment=True,
+        download_name="links.csv"
+    )

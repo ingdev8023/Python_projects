@@ -1,7 +1,9 @@
 from flask import Flask, request, redirect, jsonify,abort
-from services import url_short, get_original_url, return_urls_store
+from services import url_short, get_original_url, increment_clicks, get_url_stats
+from db import init_db
 
 app = Flask(__name__)
+init_db()
 
 @app.route("/")
 def home():
@@ -30,8 +32,14 @@ def redirect_url(short_code):
     if not original_url:
         abort(404)
 
+    increment_clicks(short_code)
     return redirect(original_url)
 
-@app.route("/debug/urls")
-def debug_urls():
-    return return_urls_store()
+@app.route("/stats/<short_code>", methods=["GET"])
+def stats(short_code):
+    stats_data = get_url_stats(short_code)
+
+    if not stats_data:
+        return jsonify({"error": "Short URL not found"}), 404
+
+    return jsonify(stats_data)

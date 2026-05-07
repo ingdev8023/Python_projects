@@ -1,4 +1,4 @@
-short_code,original_url,short_url,clicks,created_at
+id,short_code,original_url,short_url,clicks,created_at
 1,VCzVE3,https://example1000/213123/ffsddsdfsd/32423f!?/dfsdfdsfdsf/fdfsdf.com,http://127.0.0.1:5000/VCzVE3,1,2026-05-06 00:21:46
 2,YPzREY,https://example.com,http://127.0.0.1:5000/YPzREY,0,2026-05-06 00:24:10
 3,3ERmkj,https://example2.com,http://127.0.0.1:5000/3ERmkj,0,2026-05-06 00:24:10
